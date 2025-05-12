@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DarkRealm Horror</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Unbounded', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #000000, #0f0f0f);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #0b0b0b;
+      border-bottom: 1px solid #222;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: red;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 0.8rem;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: red;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: radial-gradient(circle, #1a1a1a, #000);
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      color: red;
+      animation: pulse 2s infinite;
+    }
+
+    .hero p {
+      color: #ccc;
+      font-size: 1.2rem;
+      margin: 1rem 0 2rem;
+    }
+
+    .hero button {
+      padding: 0.8rem 2rem;
+      background: red;
+      color: white;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 2rem;
+      justify-content: center;
+    }
+
+    .card {
+      background: #111;
+      border: 1px solid red;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      transition: transform 0.3s ease;
+      box-shadow: 0 0 10px red;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h3 {
+      margin-top: 1rem;
+      color: #ff4444;
+    }
+
+    .card p {
+      color: #aaa;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #0a0a0a;
+      color: #666;
+      border-top: 1px solid #222;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>DarkRealm</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Stories</a>
+      <a href="#">Videos</a>
+      <a href="#">Downloads</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+      <a href="#">Submit</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Welcome to the Fear</h2>
+    <p>Dive into modern horror experiences in 3D</p>
+    <button>Explore Now</button>
+  </section>
+
+  <section class="cards">
+    <div class="card">
+      <h3>Terrifying Tales</h3>
+      <p>Original horror stories to keep you up all night.</p>
+    </div>
+    <div class="card">
+      <h3>3D Experiences</h3>
+      <p>Immersive horror visuals like never before.</p>
+    </div>
+    <div class="card">
+      <h3>User Stories</h3>
+      <p>Share or read real-life horror encounters.</p>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2025 DarkRealm Horror. All rights reserved.
+  </footer>
+
+  <script>
+    // Optional JavaScript effects (e.g., dynamic theme, scroll effect)
+    console.log("DarkRealm site loaded");
+  </script>
+</body>
+
+</html>
+  
