@@ -1,33 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Submit - DarkRealm</title>
-  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&display=swap" rel="stylesheet">
- <link rel="stylesheet" href="style.css" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Your Horror - DarkRealm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <h1>DarkRealm</h1>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="stories.html">Stories</a>
-      <a href="videos.html">Videos</a>
-      <a href="downloads.html">Downloads</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-      <a href="submit.html">Submit</a>
-    </nav>
-  </header>
-  <section>
-    <h2>Submit Page</h2>
-    <p>This is the submit page content.</p>
-  </section>
-  <footer>
-    &copy; 2025 DarkRealm Horror. All rights reserved.
-  </footer>
+  <header>
+    <h1>DarkRealm</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="stories.html">Stories</a>
+      <a href="videos.html">Videos</a>
+      <a href="downloads.html">Downloads</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="submit.html">Submit</a>
+    </nav>
+  </header>
+
+  <section class="submit-section">
+    <h2>Submit Your Horror Content</h2>
+    <form action="#" method="POST">
+      <div class="form-field">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" required />
+      </div>
+      <div class="form-field">
+        <label for="content">Content</label>
+        <textarea id="content" name="content" rows="6" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Submit Your Story</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 DarkRealm Horror. All rights reserved.
+  </footer>
 </body>
 </html>
-
