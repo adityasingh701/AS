@@ -1,62 +1,113 @@
-/* style.css */
-body {
-  font-family: 'Unbounded', sans-serif;
-  background: linear-gradient(145deg, #000, #0f0f0f);
-  color: white;
-  margin: 0;
-  padding: 0;
-}
 
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Unbounded', sans-serif;
+    }
 
-header, footer {
-  background: #0b0b0b;
-  padding: 1rem 2rem;
-  text-align: center;
-  border-bottom: 1px solid #222;
-}
+    body {
+      background: linear-gradient(145deg, #000000, #0f0f0f);
+      color: white;
+      overflow-x: hidden;
+    }
 
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: #0b0b0b;
+      border-bottom: 1px solid #222;
+    }
 
-header h1 {
-  color: red;
-  font-size: 2rem;
-}
+    header h1 {
+      font-size: 2rem;
+      color: red;
+    }
 
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 0.8rem;
+      transition: 0.3s;
+    }
 
-nav a {
-  margin: 0 10px;
-  color: red;
-  text-decoration: none;
-  transition: 0.3s;
-}
+    nav a:hover {
+      color: red;
+    }
 
+    .hero {
+      text-align: center;
+      padding: 4rem 1rem;
+      background: radial-gradient(circle, #1a1a1a, #000);
+    }
 
-nav a:hover {
-  color: white;
-}
+    .hero h2 {
+      font-size: 3rem;
+      color: red;
+      animation: pulse 2s infinite;
+    }
 
+    .hero p {
+      color: #ccc;
+      font-size: 1.2rem;
+      margin: 1rem 0 2rem;
+    }
 
-section {
-  text-align: center;
-  padding: 4rem 1rem;
-}
+    .hero button {
+      padding: 0.8rem 2rem;
+      background: red;
+      color: white;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+    }
 
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+      100% { opacity: 1; transform: scale(1); }
+    }
 
-h2 {
-  font-size: 2.5rem;
-  color: red;
-}
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      padding: 2rem;
+      justify-content: center;
+    }
 
+    .card {
+      background: #111;
+      border: 1px solid red;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      transition: transform 0.3s ease;
+      box-shadow: 0 0 10px red;
+    }
 
-p {
-  color: #ccc;
-  font-size: 1.2rem;
-  margin-top: 1rem;
-}
+    .card:hover {
+      transform: scale(1.05);
+    }
 
+    .card h3 {
+      margin-top: 1rem;
+      color: #ff4444;
+    }
 
-footer {
-  background: #0a0a0a;
-  color: #666;
-  border-top: 1px solid #222;
-}
+    .card p {
+      color: #aaa;
+    }
 
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #0a0a0a;
+      color: #666;
+      border-top: 1px solid #222;
+    }
+  
