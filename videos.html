@@ -26,27 +26,10 @@
     <div class="video-container">
       <div class="video-item">
         <h3>The Haunted Mansion</h3>
-        <video id="webcam" autoplay playsinline width="640" height="480"></video
         
- 
-      
     </div>
   </section>
-  <script>
-  async function startWebcam() {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      const videoElement = document.getElementById('webcam');
-      videoElement.srcObject = stream;
-    } catch (error) {
-      console.error('Webcam access failed:', error);
-    }
-  }
-
-  window.onload = startWebcam;
-  </script
   
-
   <footer>
     &copy; 2025 GloomRealm Horror. All rights reserved.
   </footer>
