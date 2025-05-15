@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finance Promo Page (Login Protected)</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+    .account-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .hidden { display: none; }
+    .success-msg {
+      background: #d4edda;
+      color: #155724;
+      padding: 10px;
+      margin-top: 15px;
+      border-radius: 5px;
+      display: none;
+    }
+    .progress-box {
+      margin-top: 20px;
+      display: none;
+    }
+    .link-button {
+      background: #28a745;
+      color: white;
+      padding: 10px 15px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+    progress {
+      width: 100%;
+      height: 20px;
+    }
+    #login-box {
+      text-align: center;
+    }
+    #login-box input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    #login-box button {
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      width: 100%;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <button class="account-btn">My Account</button>
+  <div class="container">
+    <div id="login-box">
+      <h2>Enter Password to Continue</h2>
+      <input type="password" id="password" placeholder="Enter Password">
+      <button onclick="checkPassword()">Login</button>
+    </div>
+
+    <div id="main-content" class="hidden">
+      <h2>Finance Sign Up</h2>
+      <div id="signup-box">
+        <input type="text" id="username" placeholder="Enter your name" style="width:100%;padding:10px;margin-bottom:10px">
+        <button onclick="signup()" style="padding:10px;width:100%;background:#007bff;color:white;border:none;border-radius:5px">Sign Up</button>
+      </div>
+
+      <div id="promo-section" class="hidden">
+        <h3>Enter Promo Code</h3>
+        <input type="text" id="promo-code" placeholder="Enter your code" style="width:100%;padding:10px;margin-bottom:10px">
+        <button onclick="checkCode()" style="padding:10px;width:100%;background:#28a745;color:white;border:none;border-radius:5px">Submit Code</button>
+      </div>
+
+      <div id="success-msg" class="success-msg"></div>
+
+      <div class="progress-box" id="progress-section">
+        <p>To withdraw your reward, open the link below 100 times:</p>
+        <a href="https://adityasingh701.github.io/AS/" target="_blank" class="link-button" onclick="incrementClick()">Click here to open</a>
+        <p>Clicks: <span id="click-count">0</span>/100</p>
+        <progress id="progress-bar" value="0" max="100"></progress>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const correctPassword = "AS0001";
+    let correctCode = "AS5109";
+    let clicks = 0;
+
+    function checkPassword() {
+      const entered = document.getElementById("password").value;
+      if (entered === correctPassword) {
+        document.getElementById("login-box").style.display = "none";
+        document.getElementById("main-content").classList.remove("hidden");
+      } else {
+        alert("Incorrect password");
+      }
+    }
+
+    function signup() {
+      let username = document.getElementById("username").value.trim();
+      if (username !== "") {
+        document.getElementById("signup-box").style.display = "none";
+        document.getElementById("promo-section").classList.remove("hidden");
+      } else {
+        alert("Please enter your name");
+      }
+    }
+
+    function checkCode() {
+      let code = document.getElementById("promo-code").value.trim();
+      if (code === correctCode) {
+        document.getElementById("success-msg").style.display = "block";
+        document.getElementById("success-msg").innerText = "Congratulations! You got 0.00145 bitcoin";
+        document.getElementById("progress-section").style.display = "block";
+      } else {
+        alert("Invalid promo code");
+      }
+    }
+
+    function incrementClick() {
+      if (clicks < 100) {
+        clicks++;
+        document.getElementById("click-count").innerText = clicks;
+        document.getElementById("progress-bar").value = clicks;
+        if (clicks === 100) {
+          alert("You have completed 100 clicks. You can now withdraw your bitcoin.");
+        }
+      }
+    }
+  </script>
+</body>
+</html>
