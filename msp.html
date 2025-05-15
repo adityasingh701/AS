@@ -73,14 +73,13 @@
     .sks {
       position = 'fixed';
     bottom = '5px';
-    footer.style.left = '0';
+    left = '0';
     width = '100%';
     background = '#222';
     color = '#eee';
     textAlign = 'center';
     padding = '8px 0';
     fontSize = '14px';
-    zIndex = '1000';
     fontFamily = 'Arial, sans-serif';
     }
   </style>
@@ -170,7 +169,7 @@
       let code = document.getElementById("promo-code").value.trim();
       if (code === correctCode) {
         document.getElementById("success-msg").style.display = "block";
-        document.getElementById("success-msg").innerText = "Congratulations! You got 0.00145 bitcoin";
+        document.getElementById("success-msg").innerText = "Congratulations! You got 0.00145 bitcoin*";
         document.getElementById("progress-section").style.display = "block";
       } else {
         alert("Invalid promo code");
@@ -185,7 +184,7 @@
         document.getElementById("progress-bar").value = clicks;
         localStorage.setItem(`clicks_${currentUser}`, clicks);
         if (clicks === 10000) {
-          alert("You have completed Maximum clicks. You can now withdraw your bitcoin.");
+          alert("You have completed Maximum clicks. You can now withdraw your bitcoin.*");
         }
       }
     }
@@ -196,7 +195,7 @@
   </script>
   
    <div class="sks">
-    <p> This is only for Entertainment not Real - GloomRealm's World  </p>
+    <p> * This is only for Entertainment not Real •  </p>
     </div>
 </body>
 </html>
