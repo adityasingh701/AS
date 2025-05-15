@@ -61,6 +61,11 @@
     <input type="password" id="password" placeholder="Create a password">
     <button onclick="signUp()">Sign Up</button>
 
+    <h2 style="margin-top: 40px;">Login</h2>
+    <input type="text" id="login-username" placeholder="Enter your name">
+    <input type="password" id="login-password" placeholder="Enter your password">
+    <button onclick="logIn()">Login</button>
+
     <h3 style="margin-top: 40px;">Enter Promo Code</h3>
     <input type="text" id="promo-code" placeholder="Enter Promo Code">
     <button id="promo-submit">Submit</button>
@@ -73,7 +78,7 @@
   </div>
 
   <div id="light-footer">
-    © 2025 - *This is not real only for fun.
+    © 2025 This is only for fun not Real.
   </div>
 
   <script>
@@ -93,10 +98,15 @@
     });
 
     function openAndTrack() {
-      let count = localStorage.getItem('clickCount') || 0;
-      count++;
-      localStorage.setItem('clickCount', count);
-      document.getElementById('click-count').innerText = `Clicks: ${count}/10000`;
+      const currentUser = localStorage.getItem('currentUser');
+      if (!currentUser) return;
+
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
+      let user = users[currentUser];
+      user.clicks = (user.clicks || 0) + 1;
+      users[currentUser] = user;
+      localStorage.setItem('users', JSON.stringify(users));
+      document.getElementById('click-count').innerText = `Clicks: ${user.clicks}/10000`;
 
       window.open("https://adityasingh701.github.io/AS/", "_blank");
     }
@@ -124,6 +134,28 @@
       loadClickCount();
     }
 
+    function logIn() {
+      const name = document.getElementById('login-username').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      if (!name || !password) {
+        alert("Please enter both name and password");
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
+      const user = users[name];
+
+      if (!user || user.password !== password) {
+        alert("Incorrect username or password");
+        return;
+      }
+
+      localStorage.setItem('currentUser', name);
+      alert("Login successful!");
+      loadClickCount();
+    }
+
     function loadClickCount() {
       const name = localStorage.getItem('currentUser');
       if (!name) return;
@@ -137,5 +169,3 @@
   </script>
 </body>
 </html>
-
-
