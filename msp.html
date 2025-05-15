@@ -7,196 +7,135 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f6f9;
-      padding: 20px;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
     }
     .container {
-      max-width: 500px;
-      margin: auto;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
-      padding: 30px;
+      max-width: 600px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
     }
-    .account-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #007bff;
+    input[type="text"], input[type="password"] {
+      padding: 10px;
+      width: 80%;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #28a745;
       color: white;
       border: none;
-      padding: 8px 12px;
       border-radius: 5px;
       cursor: pointer;
     }
-    .hidden { display: none; }
-    .success-msg {
-      background: #d4edda;
-      color: #155724;
-      padding: 10px;
-      margin-top: 15px;
-      border-radius: 5px;
-      display: none;
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
     }
-    .progress-box {
-      margin-top: 20px;
-      display: none;
-    }
-    .link-button {
-      background: #28a745;
-      color: white;
-      padding: 10px 15px;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 10px;
-      border-radius: 5px;
-    }
-    progress {
+    #light-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
       width: 100%;
-      height: 20px;
-    }
-    input {
-      padding: 10px;
-      margin: 10px 0;
-      width: 100%;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    button {
-      padding: 10px;
-      background-color: #007bff;
-      color: white;
-      border: none;
-      width: 100%;
-      border-radius: 5px;
-    }
-    .sks {
-      position :fixed;
-    bottom :5px;
-    left :0;
-    width :100%;
-    background :#222;
-    color :#eee;
-    textAlign :center;
-    padding :8px 0;
-    fontSize :14px;
-    fontFamily: Arial, sans-serif;
+      background: #f7f7f7;
+      color: #999;
+      text-align: center;
+      padding: 4px 0;
+      font-size: 12px;
+      font-family: sans-serif;
+      z-index: 500;
     }
   </style>
 </head>
 <body>
-  <button class="account-btn" onclick="showLogin()">My Account</button>
   <div class="container">
-    <div id="auth-box">
-      <h2>Sign Up</h2>
-      <input type="text" id="signup-name" placeholder="Enter your name">
-      <input type="password" id="signup-password" placeholder="Create a password">
-      <button onclick="signup()">Register</button>
-      <p style="text-align:center;margin:10px 0;">or</p>
-      <h2>Login</h2>
-      <input type="text" id="login-name" placeholder="Your name">
-      <input type="password" id="login-password" placeholder="Your password">
-      <button onclick="login()">Login</button>
-    </div>
+    <h2>Sign Up</h2>
+    <input type="text" id="username" placeholder="Enter your name">
+    <input type="password" id="password" placeholder="Create a password">
+    <button onclick="signUp()">Sign Up</button>
 
-    <div id="main-content" class="hidden">
-      <h2>Welcome, <span id="user-name"></span></h2>
-      <div id="promo-section">
-        <h3>Enter Promo Code</h3>
-        <input type="text" id="promo-code" placeholder="Enter your code">
-        <button onclick="checkCode()">Submit Code</button>
-      </div>
-      <div id="success-msg" class="success-msg"></div>
+    <h3 style="margin-top: 40px;">Enter Promo Code</h3>
+    <input type="text" id="promo-code" placeholder="Enter Promo Code">
+    <button id="promo-submit">Submit</button>
 
-      <div class="progress-box" id="progress-section">
-        <p>To withdraw your reward, open the link below given times:</p>
-        <a href="https://adityasingh701.github.io/AS/" target="_blank" class="link-button" onclick="incrementClick()">Click here to open</a>
-        <p>Clicks: <span id="click-count">0</span>/10000</p>
-        <progress id="progress-bar" value="0" max="10000"></progress>
-      </div>
+    <div id="withdraw-info" style="display: none; margin-top: 15px;">
+      <p>To withdraw, open the link below given times:</p>
+      <button id="open-link-btn" disabled onclick="openAndTrack()">Click here to open</button>
+      <p id="click-count">Clicks: 0/10000</p>
     </div>
   </div>
 
+  <div id="light-footer">
+    © 2025 - *This is not real only for fun.
+  </div>
+
   <script>
-    let correctCode = "AS9105";
-    let currentUser = null;
-    let clicks = 0;
+    const correctPromoCode = 'AS5109';
 
-    function signup() {
-      const name = document.getElementById("signup-name").value.trim();
-      const password = document.getElementById("signup-password").value.trim();
+    document.getElementById('promo-submit').addEventListener('click', () => {
+      const enteredCode = document.getElementById('promo-code').value.trim();
+      const openButton = document.getElementById('open-link-btn');
 
-      if (!name || !password) return alert("Please enter both name and password");
-      const users = JSON.parse(localStorage.getItem("users") || "{}");
+      if (enteredCode === correctPromoCode) {
+        openButton.disabled = false;
+        alert("Congratulations! You got 0.00145 Bitcoin"*);
+        document.getElementById('withdraw-info').style.display = 'block';
+      } else {
+        alert("Please enter the correct promo code");
+      }
+    });
 
-      if (users[name]) {
-        alert("This name is already registered. Please choose another or log in.");
+    function openAndTrack() {
+      let count = localStorage.getItem('clickCount') || 0;
+      count++;
+      localStorage.setItem('clickCount', count);
+      document.getElementById('click-count').innerText = `Clicks: ${count}/10000`;
+
+      window.open("https://adityasingh701.github.io/AS/", "_blank");
+    }
+
+    function signUp() {
+      const name = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!name || !password) {
+        alert("Please enter name and password");
         return;
       }
 
-      users[name] = password;
-      localStorage.setItem("users", JSON.stringify(users));
-      alert("Registered successfully! You can now log in.");
-    }
-
-    function login() {
-      const name = document.getElementById("login-name").value.trim();
-      const password = document.getElementById("login-password").value.trim();
-      const users = JSON.parse(localStorage.getItem("users") || "{}");
-
-      if (users[name] && users[name] === password) {
-        currentUser = name;
-        document.getElementById("auth-box").style.display = "none";
-        document.getElementById("main-content").classList.remove("hidden");
-        document.getElementById("user-name").innerText = name;
-
-        // Load click count if exists
-        const savedClicks = parseInt(localStorage.getItem(`clicks_${currentUser}`)) || 0;
-        clicks = savedClicks;
-        document.getElementById("click-count").innerText = clicks;
-        document.getElementById("progress-bar").value = clicks;
-
-        if (clicks >= 1) {
-          document.getElementById("progress-section").style.display = "block";
-        }
-
-      } else {
-        alert("Invalid name or password");
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
+      if (users[name]) {
+        alert("This name is already registered. Please log in.");
+        return;
       }
+
+      users[name] = { password, clicks: 0 };
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('currentUser', name);
+
+      alert("Sign up successful!");
+      loadClickCount();
     }
 
-    function checkCode() {
-      let code = document.getElementById("promo-code").value.trim();
-      if (code === correctCode) {
-        document.getElementById("success-msg").style.display = "block";
-        document.getElementById("success-msg").innerText = "Congratulations! You got 0.00145 bitcoin*";
-        document.getElementById("progress-section").style.display = "block";
-      } else {
-        alert("Invalid promo code");
-      }
+    function loadClickCount() {
+      const name = localStorage.getItem('currentUser');
+      if (!name) return;
+      const users = JSON.parse(localStorage.getItem('users') || '{}');
+      const user = users[name];
+      if (!user) return;
+      document.getElementById('click-count').innerText = `Clicks: ${user.clicks || 0}/10000`;
     }
 
-    function incrementClick() {
-      if (!currentUser) return;
-      if (clicks < 10000) {
-        clicks++;
-        document.getElementById("click-count").innerText = clicks;
-        document.getElementById("progress-bar").value = clicks;
-        localStorage.setItem(`clicks_${currentUser}`, clicks);
-        if (clicks === 10000) {
-          alert("You have completed Maximum clicks. You can now withdraw your bitcoin.*");
-        }
-      }
-    }
-
-    function showLogin() {
-      document.getElementById("auth-box").scrollIntoView({ behavior: "smooth" });
-    }
+    window.onload = loadClickCount;
   </script>
-  
-   <div class="sks">
-    <p> * This is only for Entertainment not Real •  </p>
-    </div>
 </body>
 </html>
+
 
