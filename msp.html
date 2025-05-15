@@ -172,7 +172,7 @@
         document.getElementById("progress-bar").value = clicks;
         localStorage.setItem(`clicks_${currentUser}`, clicks);
         if (clicks === 10000) {
-          alert("You have completed 100 clicks. You can now withdraw your bitcoin.");
+          alert("You have completed Maximum clicks. You can now withdraw your bitcoin.");
         }
       }
     }
@@ -180,11 +180,38 @@
     function showLogin() {
       document.getElementById("auth-box").scrollIntoView({ behavior: "smooth" });
     }
+
+    function showFooter() {
+  if (!document.getElementById('custom-footer')) {
+    const footer = document.createElement('div');
+    footer.id = 'custom-footer';
+    footer.style.position = 'fixed';
+    footer.style.bottom = '5px';
+    footer.style.left = '0';
+    footer.style.width = '100%';
+    footer.style.background = '#222';
+    footer.style.color = '#eee';
+    footer.style.textAlign = 'center';
+    footer.style.padding = '8px 0';
+    footer.style.fontSize = '14px';
+    footer.style.zIndex = '1000';
+    footer.style.fontFamily = 'Arial, sans-serif';
+    footer.innerHTML = "This is only for entertainment not Real - GloomRealm's World";
+    document.body.appendChild(footer);
+  }
+}
+
+// जब user लॉगिन हो जाए और main-content दिखे, तब इस function को कॉल करें
+// उदाहरण:
+login = () => {
+  // आपकी existing login logic...
+  // अगर login सफल हो जाए:
+  showFooter();
+};
+    
   </script>
 
-  <footer> 
-  <h6> This is only for Entertainment </h6>
-  </footer>
+ 
 </body>
 </html>
 
