@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finance Promo Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    input[type="text"],
+    input[type="password"] {
+      padding: 10px;
+      width: 80%;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+    #light-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #f7f7f7;
+      color: #999;
+      text-align: center;
+      padding: 4px 0;
+      font-size: 12px;
+      font-family: Arial, sans-serif;
+      z-index: 500;
+    }
+    .section {
+      display: none;
+    }
+    /* Logout button अलग रंग के लिए */
+    #logout-btn {
+      margin-top: 15px;
+      background-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="auth-section" class="section">
+      <h2>Sign Up</h2>
+      <input type="text" id="username" placeholder="Enter your name" />
+      <input type="password" id="password" placeholder="Create a password" />
+      <button onclick="signUp()">Sign Up</button>
+
+      <h2 style="margin-top: 40px;">Login</h2>
+      <input type="text" id="login-username" placeholder="Enter your name" />
+      <input type="password" id="login-password" placeholder="Enter your password" />
+      <button onclick="logIn()">Login</button>
+    </div>
+
+    <div id="promo-section" class="section">
+      <h3>Enter Promo Code</h3>
+      <input type="text" id="promo-code" placeholder="Enter Promo Code" />
+      <button id="promo-submit">Submit</button>
+      <br />
+      <button id="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <div id="withdraw-info" class="section">
+      <p>Congratulations! You got 0.00145 Bitcoin*</p>
+      <p>To withdraw, open the link below given times:</p>
+      <button id="open-link-btn" disabled onclick="openAndTrack()">Click here to open</button>
+      <p id="click-count">Clicks: 0/10000</p>
+    </div>
+  </div>
+
+  <div id="light-footer">
+    © 2025 * This is only for fun not real.
+  </div>
+
+  <script>
+    const correctPromoCode = "AS9105";
+
+    document.getElementById("promo-submit").addEventListener("click", () => {
+      const enteredCode = document.getElementById("promo-code").value.trim();
+      const openButton = document.getElementById("open-link-btn");
+
+      if (enteredCode === correctPromoCode) {
+        openButton.disabled = false;
+        document.getElementById("promo-section").style.display = "none";
+        document.getElementById("withdraw-info").style.display = "block";
+      } else {
+        alert("Please enter the correct promo code");
+      }
+    });
+
+    function openAndTrack() {
+      const currentUser = localStorage.getItem("currentUser");
+      if (!currentUser) return;
+
+      const users = JSON.parse(localStorage.getItem("users") || "{}");
+      let user = users[currentUser];
+      user.clicks = (user.clicks || 0) + 1;
+      users[currentUser] = user;
+      localStorage.setItem("users", JSON.stringify(users));
+      document.getElementById("click-count").innerText = `Clicks: ${user.clicks}/10000`;
+
+      window.open("https://adityasingh701.github.io/AS/", "_blank");
+    }
+
+    function signUp() {
+      const name = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (!name || !password) {
+        alert("Please enter name and password");
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem("users") || "{}");
+      if (users[name]) {
+        alert("This name is already registered. Please log in.");
+        return;
+      }
+
+      users[name] = { password, clicks: 0 };
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("currentUser", name);
+
+      alert("Sign up successful!");
+      showSection("promo");
+      loadClickCount();
+    }
+
+    function logIn() {
+      const name = document.getElementById("login-username").value.trim();
+      const password = document.getElementById("login-password").value;
+
+      if (!name || !password) {
+        alert("Please enter both name and password");
+        return;
+      }
+
+      const users = JSON.parse(localStorage.getItem("users") || "{}");
+      const user = users[name];
+
+      if (!user || user.password !== password) {
+        alert("Incorrect username or password");
+        return;
+      }
+
+      localStorage.setItem("currentUser", name);
+      alert("Login successful!");
+      showSection("promo");
+      loadClickCount();
+    }
+
+    function loadClickCount() {
+      const name = localStorage.getItem("currentUser");
+      if (!name) return;
+      const users = JSON.parse(localStorage.getItem("users") || "{}");
+      const user = users[name];
+      if (!user) return;
+      document.getElementById("click-count").innerText = `Clicks: ${user.clicks || 0}/10000`;
+    }
+
+    function showSection(stage) {
+      document.getElementById("auth-section").style.display = "none";
+      document.getElementById("promo-section").style.display = "none";
+      document.getElementById("withdraw-info").style.display = "none";
+
+      if (stage === "auth") document.getElementById("auth-section").style.display = "block";
+      else if (stage === "promo") document.getElementById("promo-section").style.display = "block";
+      else if (stage === "withdraw") document.getElementById("withdraw-info").style.display = "block";
+    }
+
+    function logout() {
+      localStorage.removeItem("currentUser");
+      alert("You have been logged out.");
+      showSection("auth");
+    }
+
+    window.onload = () => {
+      const currentUser = localStorage.getItem("currentUser");
+      if (currentUser) {
+        showSection("promo");
+        loadClickCount();
+      } else {
+        showSection("auth");
+      }
+    };
+  </script>
+</body>
+</html>
