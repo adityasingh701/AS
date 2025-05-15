@@ -118,7 +118,7 @@
       user.clicks = (user.clicks || 0) + 1;
       users[currentUser] = user;
       localStorage.setItem('users', JSON.stringify(users));
-      document.getElementById('click-count').innerText = `Clicks: ${user.clicks}/00100`;
+      document.getElementById('click-count').innerText = `Clicks: ${user.clicks}/10000`;
 
       window.open("https://luckilygelatine.com/r0chs2rt6?key=150b832cf14b9460b9f042e6b9e0f4d7", "_blank");
     }
