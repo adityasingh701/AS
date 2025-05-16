@@ -111,7 +111,7 @@ h2 {
   gap: 30px;
 }
 
-.card, .story-item, .download-item, .video-item {
+.card, .story-item, .download-item {
   background: #1a1a1a;
   padding: 20px;
   border-radius: 15px;
@@ -120,7 +120,7 @@ h2 {
 }
 
 .video-item {
-  color: #26FFCE;
+  background: #fff;
 }
 
 .card:hover, .story-item:hover, .download-item:hover, .video-item:hover {
