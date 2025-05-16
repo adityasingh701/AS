@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finance Promo Page</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 0; text-align: center; }
+    .container { max-width: 600px; margin: 40px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, button { padding: 10px; width: 80%; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+    button { background: #28a745; color: white; border: none; cursor: pointer; }
+    button:disabled { background: #ccc; cursor: not-allowed; }
+    .section { display: none; }
+    #light-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: #f7f7f7; color: #999; text-align: center; padding: 4px 0; font-size: 12px; font-family: sans-serif; z-index: 500; }
+    table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+    th, td { border: 1px solid #ccc; padding: 5px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="auth-section" class="section">
+      <h2>Sign Up</h2>
+      <input type="text" id="username" placeholder="Enter your name">
+      <input type="password" id="password" placeholder="Create a password">
+      <button onclick="signUp()">Sign Up</button>
+
+
+      <h2>Login</h2>
+      <input type="text" id="login-username" placeholder="Enter your name">
+      <input type="password" id="login-password" placeholder="Enter your password">
+      <button onclick="logIn()">Login</button>
+    </div>
+
+
+    <div id="promo-section" class="section">
+      <h3>Enter Promo Code</h3>
+      <input type="text" id="promo-code" placeholder="Enter Promo Code">
+      <button id="promo-submit">Submit</button>
+    </div>
+
+
+    <div id="withdraw-info" class="section">
+      <p>Congratulations! You got 0.00145 Bitcoin*</p>
+      <p>To withdraw, open both links below 10000 times total:</p>
+      <button id="open-link-btn1" disabled onclick="openAndTrack(1)">Click Link 1</button><br>
+      <button id="open-link-btn2" disabled onclick="openAndTrack(2)">Click Link 2</button>
+      <p id="click-count">Clicks: 0/10000</p>
+    </div>
+
+
+    <div id="admin-panel" class="section">
+      <h3>Admin Dashboard</h3>
+      <div id="user-table"></div>
+    </div>
+  </div>
+
+
+  <div id="light-footer">
+    © 2025 * This is only for fun not real.
+  </div>
+
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbWQMCtFy3Jwjk8dsmBfByJCYxhDAjfHQ",
+      authDomain: "click-promo-tracker.firebaseapp.com",
+      projectId: "click-promo-tracker",
+      storageBucket: "click-promo-tracker.firebasestorage.app",
+      messagingSenderId: "1881147982",
+      appId: "1:1881147982:web:d94587862b40d0d3c5511f",
+      databaseURL: "https://click-promo-tracker-default-rtdb.firebaseio.com/"
+    };
+
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+
+    const correctPromoCode = "AS9105";
+    let currentUser = localStorage.getItem('currentUser');
+
+
+    document.getElementById("promo-submit").onclick = () => {
+      const enteredCode = document.getElementById("promo-code").value.trim();
+      if (enteredCode === correctPromoCode) {
+        document.getElementById("open-link-btn1").disabled = false;
+        document.getElementById("open-link-btn2").disabled = false;
+        showSection("withdraw");
+      } else {
+        alert("Please enter the correct promo code");
+      }
+    };
+
+
+    function openAndTrack(linkNum) {
+      const link = linkNum === 1 ? "https://luckilygelatine.com/xsthkq8vu?key=f1640cb4ec1f051820a6ab24396946d0" : "https://luckilygelatine.com/r0chs2rt6?key=150b832cf14b9460b9f042e6b9e0f4d7";
+      window.open(link, "_blank");
+
+
+      const time = new Date().toISOString();
+      const userRef = ref(db, `users/${currentUser}`);
+      get(userRef).then(snapshot => {
+        const user = snapshot.val() || { clicks: 0, timestamps: [] };
+        user.clicks++;
+        user.timestamps = user.timestamps || [];
+        user.timestamps.push(time);
+        set(userRef, user);
+        document.getElementById("click-count").innerText = `Clicks: ${user.clicks}/10000`;
+      });
+    }
+
+
+    function signUp() {
+      const name = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+      if (!name || !password) return alert("Enter both fields");
+      const userRef = ref(db, `users/${name}`);
+      get(userRef).then(snapshot => {
+        if (snapshot.exists()) return alert("User already exists, please login");
+        set(userRef, { password, clicks: 0, timestamps: [] });
+        localStorage.setItem("currentUser", name);
+        currentUser = name;
+        showSection("promo");
+      });
+    }
+
+
+    function logIn() {
+      const name = document.getElementById("login-username").value.trim();
+      const password = document.getElementById("login-password").value;
+      const userRef = ref(db, `users/${name}`);
+      get(userRef).then(snapshot => {
+        if (!snapshot.exists() || snapshot.val().password !== password) return alert("Wrong credentials");
+        localStorage.setItem("currentUser", name);
+        currentUser = name;
+        if (name === "MSteam" && password === "697369") loadAdmin();
+        else showSection("promo");
+      });
+    }
+
+
+    function loadAdmin() {
+      showSection("admin");
+      const tableDiv = document.getElementById("user-table");
+      onValue(ref(db, "users"), snapshot => {
+        const users = snapshot.val();
+        let html = '<table><tr><th>User</th><th>Clicks</th><th>Timestamps</th></tr>';
+        for (const [name, data] of Object.entries(users)) {
+          html += `<tr><td>${name}</td><td>${data.clicks || 0}</td><td>${(data.timestamps || []).join('<br>')}</td></tr>`;
+        }
+        html += '</table>';
+        tableDiv.innerHTML = html;
+      });
+    }
+
+
+    function showSection(name) {
+      ["auth", "promo", "withdraw", "admin"].forEach(id => {
+        document.getElementById(`${id}-section`)?.style.display = id === name ? "block" : "none";
+      });
+    }
+
+
+    window.onload = () => {
+      if (currentUser) {
+        if (currentUser === "MSteam") loadAdmin();
+        else showSection("promo");
+      } else {
+        showSection("auth");
+      }
+    }
+  </script>
+</body>
+</html>
+
