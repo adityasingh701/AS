@@ -5,15 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Finance Promo Page</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f0f0f0; margin: 0; padding: 0; text-align: center; }
+    body { font-family: Arial, sans-serif;
+          background: #f0f0f0;
+          margin: 0; 
+          padding: 0; 
+          text-align: center; 
+         }
+    
     .container { max-width: 600px; margin: 40px auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    
     input, button { padding: 10px; width: 80%; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
-    button { background: #28a745; color: white; border: none; cursor: pointer; }
-    button:disabled { background: #ccc; cursor: not-allowed; }
-    .section { display: none; }
-    #light-footer { position: fixed; bottom: 0; left: 0; width: 100%; background: #f7f7f7; color: #999; text-align: center; padding: 4px 0; font-size: 12px; font-family: sans-serif; z-index: 500; }
-    table { width: 100%; margin-top: 20px; border-collapse: collapse; }
-    th, td { border: 1px solid #ccc; padding: 5px; font-size: 14px; }
+    
+    button { background: #28a745; 
+            color: white;
+            border: none; 
+            cursor: pointer; 
+           }
+    
+    button:disabled { 
+      background: #ccc;
+                     cursor: not-allowed; 
+                    }
+    
+    .section { display: none; 
+             }
+    
+    #light-footer { position: fixed;
+                   bottom: 0; 
+                   left: 0;
+                   width: 100%;
+                   background: #f7f7f7;
+                   color: #999;
+                   text-align: center; 
+                   padding: 4px 0;
+                   font-size: 12px; 
+                   font-family: sans-serif;
+                   z-index: 500; }
+    
+    table { width: 100%; 
+           margin-top: 20px;
+           border-collapse: collapse; }
+    
+    th, td { 
+      border: 1px solid #ccc; 
+      padding: 5px; 
+      font-size: 14px; }
+    
   </style>
 </head>
 <body>
@@ -39,7 +76,7 @@
     <div id="withdraw-section" class="section">
       <p>Congratulations! You got 0.00145 Bitcoin*</p>
       <p>To withdraw, open both links below 10000 times total:</p>
-      <button id="open-link-btn1" disabled onclick="openAndTrack(1)">Click Link 1</button><br>
+      <button id="open-link-btn1" disabled onclick="openAndTrack(1)">Click Link 1</button>
       <button id="open-link-btn2" disabled onclick="openAndTrack(2)">Click Link 2</button>
       <p id="click-count">Clicks: 0/10000</p>
     </div>
