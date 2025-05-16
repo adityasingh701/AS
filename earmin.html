@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Click Tracker</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f2f2f2; padding: 20px; }
+    h1 { text-align: center; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: center; }
+    th { background: #444; color: #fff; }
+  </style>
+</head>
+<body>
+  <h1>Admin Dashboard - User Click Stats</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Click Count</th>
+      </tr>
+    </thead>
+    <tbody id="user-table">
+    </tbody>
+  </table>
+
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyCbWQMCtFy3Jwjk8dsmBfByJCYxhDAjfHQ",
+      authDomain: "click-promo-tracker.firebaseapp.com",
+      projectId: "click-promo-tracker",
+      storageBucket: "click-promo-tracker.firebasestorage.app",
+      messagingSenderId: "1881147982",
+      appId: "1:1881147982:web:d94587862b40d0d3c5511f"
+    };
+
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+
+    const tableBody = document.getElementById("user-table");
+
+
+    db.ref("users").on("value", snapshot => {
+      tableBody.innerHTML = "";
+      const data = snapshot.val();
+      if (data) {
+        Object.keys(data).forEach(userId => {
+          const clicks = data[userId].clicks || 0;
+          const row = `<tr><td>${userId}</td><td>${clicks}</td></tr>`;
+          tableBody.innerHTML += row;
+        });
+      }
+    });
+  </script>
+</body>
+</html>
+
