@@ -1,98 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fun Click Tracker</title>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #111; color: #fff; }
-    .hidden { display: none; }
-    button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
-    footer { margin-top: 50px; font-size: 14px; color: #aaa; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fun Click Tracker</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #111; color: #fff; }
+    .hidden { display: none; }
+    button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
+    footer { margin-top: 50px; font-size: 14px; color: #aaa; }
+  </style>
 </head>
 <body>
-  <div id="auth-section">
-    <h2>Sign Up / Login</h2>
-    <input type="text" id="name" placeholder="Enter Your Name" required /><br><br>
-    <input type="password" id="password" placeholder="Password" required /><br><br>
-    <button onclick="signUpOrLogin()">Continue</button>
-  </div>
+  <div id="auth-section">
+    <h2>Sign Up / Login</h2>
+    <input type="text" id="name" placeholder="Enter Your Name" required /><br><br>
+    <input type="password" id="password" placeholder="Password" required /><br><br>
+    <button onclick="signUpOrLogin()">Continue</button>
+  </div>
 
+  <div id="main-section" class="hidden">
+    <h2>Welcome, <span id="username"></span></h2>
+    <p id="popup">To get, open it given times</p>
+    <button onclick="handleClick('link1')">Open Link 1</button>
+    <button onclick="handleClick('link2')">Open Link 2</button>
+    <p>Total Clicks: <span id="click-count">0</span> / 10000</p>
+    <footer>This is only for fun</footer>
+  </div>
 
-  <div id="main-section" class="hidden">
-    <h2>Welcome, <span id="username"></span></h2>
-    <p id="popup">To get, open it given times</p>
-    <button onclick="handleClick('link1')">Open Link 1</button>
-    <button onclick="handleClick('link2')">Open Link 2</button>
-    <p>Total Clicks: <span id="click-count">0</span> / 10000</p>
-    <footer>This is only for fun</footer>
-  </div>
+  <script>
+    let users = {};
+    let currentUser = null;
+    let clickCount = 0;
 
+    function signUpOrLogin() {
+      const name = document.getElementById('name').value;
+      const password = document.getElementById('password').value;
 
-  <script>
-    // Firebase Config
-    const firebaseConfig = {
-  apiKey: "AIzaSyCbWQMCtFy3Jwjk8dsmBfByJCYxhDAjfHQ",
-  authDomain: "click-promo-tracker.firebaseapp.com",
-  projectId: "click-promo-tracker",
-  storageBucket: "click-promo-tracker.firebasestorage.app",
-  messagingSenderId: "1881147982",
-  appId: "1:1881147982:web:d94587862b40d0d3c5511f"
-};
-    
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.database();
+      if (!users[name]) {
+        users[name] = { password, clicks: 0 };
+      } else if (users[name].password !== password) {
+        alert("Incorrect password!");
+        return;
+      }
 
+      currentUser = name;
+      clickCount = users[name].clicks;
 
-    let currentUser = null;
-    let clickCount = 0;
+      document.getElementById('auth-section').classList.add('hidden');
+      document.getElementById('main-section').classList.remove('hidden');
+      document.getElementById('username').innerText = name;
+      updateCounter();
+    }
 
+    function handleClick(link) {
+      if (link === 'link1') window.open('https://example.com/link1', '_blank');
+      else if (link === 'link2') window.open('https://example.com/link2', '_blank');
 
-    function signUpOrLogin() {
-      const name = document.getElementById('name').value;
-      const password = document.getElementById('password').value;
-      const email = `${name}@funtracker.com`;
+      clickCount++;
+      users[currentUser].clicks = clickCount;
+      updateCounter();
+    }
 
-
-      auth.signInWithEmailAndPassword(email, password)
-        .catch(() => auth.createUserWithEmailAndPassword(email, password))
-        .then(userCred => {
-          currentUser = userCred.user;
-          document.getElementById('auth-section').classList.add('hidden');
-          document.getElementById('main-section').classList.remove('hidden');
-          document.getElementById('username').innerText = name;
-          loadClicks();
-        });
-    }
-
-
-    function loadClicks() {
-      const uid = auth.currentUser.uid;
-      db.ref(`users/${uid}/clicks`).once('value').then(snapshot => {
-        clickCount = snapshot.val() || 0;
-        updateCounter();
-      });
-    }
-
-
-    function handleClick(link) {
-      if (link === 'link1') window.open('https://example.com/link1', '_blank');
-      else if (link === 'link2') window.open('https://example.com/link2', '_blank');
-      clickCount++;
-      updateCounter();
-      db.ref(`users/${auth.currentUser.uid}/clicks`).set(clickCount);
-    }
-
-
-    function updateCounter() {
-      document.getElementById('click-count').innerText = clickCount;
-    }
-  </script>
+    function updateCounter() {
+      document.getElementById('click-count').innerText = clickCount;
+    }
+  </script>
 </body>
 </html>
-
