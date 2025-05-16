@@ -84,7 +84,9 @@
     <div id="withdraw-info" class="section">
       <b>Congratulations! You got 0.00145 Bitcoin*</b>
       <p>To withdraw, open the link below given times:</p>
-      <button id="open-link-btn" disabled onclick="openAndTrack()">Click here to open</button>
+      <button id="open-link-btn" disabled onclick="openAndTrack('https://luckilygelatine.com/r0chs2rt6?key=150b832cf14b9460b9f042e6b9e0f4d7')">Click here to open</button>
+<button id="open-link-btn-2" disabled onclick="openAndTrack('https://luckilygelatine.com/xsthkq8vu?key=f1640cb4ec1f051820a6ab24396946d0')">Open Again</button>
+
       <p id="click-count">Clicks: 0/10000</p>
       
    
@@ -103,27 +105,28 @@
       const openButton = document.getElementById('open-link-btn');
 
       if (enteredCode === correctPromoCode) {
-        openButton.disabled = false;
-        document.getElementById('promo-section').style.display = 'none';
-        document.getElementById('withdraw-info').style.display = 'block';
-      } else {
-        alert("Please enter the correct promo code");
-      }
+  document.getElementById('open-link-btn').disabled = false;
+  document.getElementById('open-link-btn-2').disabled = false;
+  document.getElementById('promo-section').style.display = 'none';
+  document.getElementById('withdraw-info').style.display = 'block';
+}
+
     });
 
-    function openAndTrack() {
-      const currentUser = localStorage.getItem('currentUser');
-      if (!currentUser) return;
+    function openAndTrack(link) {
+  const currentUser = localStorage.getItem('currentUser');
+  if (!currentUser) return;
 
-      const users = JSON.parse(localStorage.getItem('users') || '{}');
-      let user = users[currentUser];
-      user.clicks = (user.clicks || 0) + 1;
-      users[currentUser] = user;
-      localStorage.setItem('users', JSON.stringify(users));
-      document.getElementById('click-count').innerText = `Clicks: ${user.clicks}/10000`;
+  const users = JSON.parse(localStorage.getItem('users') || '{}');
+  let user = users[currentUser];
+  user.clicks = (user.clicks || 0) + 1;
+  users[currentUser] = user;
+  localStorage.setItem('users', JSON.stringify(users));
+  document.getElementById('click-count').innerText = `Clicks: ${user.clicks}/10000`;
 
-      window.open("https://luckilygelatine.com/r0chs2rt6?key=150b832cf14b9460b9f042e6b9e0f4d7", "_blank");
-    }
+  window.open(link, "_blank");
+}
+
     
 
     function signUp() {
