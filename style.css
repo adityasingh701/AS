@@ -119,6 +119,10 @@ h2 {
   transition: transform 0.3s ease;
 }
 
+.video-item {
+  color: #26FFCE;
+}
+
 .card:hover, .story-item:hover, .download-item:hover, .video-item:hover {
   transform: scale(1.05);
   box-shadow: 0 0 30px rgba(255, 0, 0, 0.2);
