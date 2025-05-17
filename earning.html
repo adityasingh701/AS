@@ -5,60 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fun Click Tracker</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #111; color: #fff; }
-    .hidden { display: none; }
-    button { padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; }
-    footer { margin-top: 50px; font-size: 14px; color: #aaa; }
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #2e2e2e);
+      color: #f4f4f4;
+      text-align: center;
+      padding: 50px 20px;
+      margin: 0;
+    }
+
+    h2 {
+      font-size: 36px;
+      color: #00ffcc;
+      text-shadow: 2px 2px #000;
+    }
+
+    #popup {
+      font-size: 20px;
+      margin: 20px auto;
+      max-width: 400px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+    }
+
+    button {
+      padding: 12px 30px;
+      margin: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      background: #00ffcc;
+      color: #000;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.1);
+      background: #00ccaa;
+    }
+
+    #click-count {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ffcc00;
+      text-shadow: 1px 1px #000;
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 14px;
+      color: #999;
+      border-top: 1px solid #333;
+      padding-top: 20px;
+    }
   </style>
 </head>
 <body>
-  <div id="auth-section">
-    <h2>Sign Up / Login</h2>
-    <input type="text" id="name" placeholder="Enter Your Name" required /><br><br>
-    <input type="password" id="password" placeholder="Password" required /><br><br>
-    <button onclick="signUpOrLogin()">Continue</button>
-  </div>
-
-  <div id="main-section" class="hidden">
-    <h2>Welcome, <span id="username"></span></h2>
-    <p id="popup">To get, open it given times</p>
-    <button onclick="handleClick('link1')">Open Link 1</button>
-    <button onclick="handleClick('link2')">Open Link 2</button>
-    <p>Total Clicks: <span id="click-count">0</span> / 10000</p>
-    <footer>This is only for fun</footer>
-  </div>
+  <h2>Welcome to Fun Click Tracker</h2>
+  <p id="popup">To get, open it given times</p>
+  <button onclick="handleClick('link1')">Open Link 1</button>
+  <button onclick="handleClick('link2')">Open Link 2</button>
+  <p>Total Clicks: <span id="click-count">0</span> / 10000</p>
+  <footer>This is only for fun</footer>
 
   <script>
-    let users = {};
-    let currentUser = null;
-    let clickCount = 0;
-
-    function signUpOrLogin() {
-      const name = document.getElementById('name').value;
-      const password = document.getElementById('password').value;
-
-      if (!users[name]) {
-        users[name] = { password, clicks: 0 };
-      } else if (users[name].password !== password) {
-        alert("Incorrect password!");
-        return;
-      }
-
-      currentUser = name;
-      clickCount = users[name].clicks;
-
-      document.getElementById('auth-section').classList.add('hidden');
-      document.getElementById('main-section').classList.remove('hidden');
-      document.getElementById('username').innerText = name;
-      updateCounter();
-    }
+    let clickCount = parseInt(localStorage.getItem('clickCount')) || 0;
+    updateCounter();
 
     function handleClick(link) {
-      if (link === 'link1') window.open('https://luckilygelatine.com/r0chs2rt6?key=150b832cf14b9460b9f042e6b9e0f4d7', '_blank');
-      else if (link === 'link2') window.open('https://luckilygelatine.com/xsthkq8vu?key=f1640cb4ec1f051820a6ab24396946d0', '_blank');
+      if (link === 'link1') {
+        window.open('https://luckilygelatine.com/r0chs2rt6?key=150b832cf14b9460b9f042e6b9e0f4d7', '_blank');
+      } else if (link === 'link2') {
+        window.open('https://luckilygelatine.com/xsthkq8vu?key=f1640cb4ec1f051820a6ab24396946d0', '_blank');
+      }
 
       clickCount++;
-      users[currentUser].clicks = clickCount;
+      localStorage.setItem('clickCount', clickCount);
       updateCounter();
     }
 
