@@ -105,10 +105,17 @@ h2 {
   font-size: 2rem;
 }
 
-.card-container, .story-list, .downloads-container, .video-container {
+.card-container, .story-list, .downloads-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 30px;
+}
+.video-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  background-color:#fff;
+  
 }
 
 .card, .story-item, .download-item {
