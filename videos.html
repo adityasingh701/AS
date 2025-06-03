@@ -45,37 +45,5 @@
     &copy; 2025 GloomRealm Horror. All rights reserved.
   </footer>
 
-  <script>
-    const videoLinks = [
-      [
-        "https://www.profitableratecpm.com/zpvmyve4x?key=17b335c06eaccd47842fe69020721abe", // Black Panther - Link 1
-        "https://drive.google.com/drive/folders/15irlGWya9P46BkZ7ioWSfZmUHSf9_P6x" // Alternate Link
-      ],
-      [
-        "https://www.profitableratecpm.com/zpvmyve4x?key=17b335c06eaccd47842fe69020721abe", // Chhava - Link 1
-        "https://drive.google.com/drive/folders/18by8dwTCXLXzuHzYUeCQ6PeHknWXP3F2" // Alternate Link
-      ],
-      [
-        "https://www.profitableratecpm.com/zpvmyve4x?key=17b335c06eaccd47842fe69020721abe", // Peter Rabbit - Link 1
-        "https://drive.google.com/drive/folders/18b66c3ff_cYhIbKWr7lEeAbpCUXecpPc" // Alternate Link
-      ]
-    ];
-
-    const clickCounts = [0, 0, 0];
-
-    document.querySelectorAll('.video-container a').forEach(link => {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        const index = parseInt(this.getAttribute('data-index'));
-        const currentClick = clickCounts[index];
-        const targetUrl = videoLinks[index][currentClick % 2];
-
-        clickCounts[index]++;
-        window.open(targetUrl, "_blank");
-      });
-    });
-  </script>
-
 </body>
 </html>
