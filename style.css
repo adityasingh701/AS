@@ -97,6 +97,12 @@ nav a:hover {
   max-width: 1200px;
   margin: auto;
 }
+.stories-session h2 {
+  text-align: center;
+  color: #ff3c3c;
+  margin-bottom: 40px;
+  font-size: 2rem;
+}
 
 h2 {
   text-align: center;
