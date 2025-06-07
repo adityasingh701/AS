@@ -1,4 +1,4 @@
-/* Global Styles */
+
 * {
   margin: 0;
   padding: 0;
@@ -97,7 +97,7 @@ nav a:hover {
   max-width: 1200px;
   margin: auto;
 }
-b {
+.stories-session b {
   text-align: center;
   color: #0A0FC9;
   margin-bottom: 40px;
