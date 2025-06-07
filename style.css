@@ -103,6 +103,18 @@ nav a:hover {
   margin-bottom: 40px;
   font-size: 2rem;
 }
+.story-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.story-thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 4px;
+}
 
 h2 {
   text-align: center;
