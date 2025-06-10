@@ -105,9 +105,9 @@ nav a:hover {
 }
 
 #ad-container {
-  position: flex;
-  bottom: 200px;
-  right: 90px;
+  position: relative;
+  top: 20px;
+  left: 180px;
   width: 300px;
   height: 250px;
   z-index: 9999;
