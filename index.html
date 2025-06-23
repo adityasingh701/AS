@@ -185,6 +185,20 @@ body {
 </script>
 <script type="text/javascript" src="//www.highperformanceformat.com/bb55746716a9946a9e5eeadf534b352c/invoke.js"></script>
 
+	<!-- OneSignal Push Notifications -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "bc3589d5-63fc-4a32-b3df-9241eb68108f",
+      notifyButton: {
+        enable: true, // Shows the bell icon for subscribing
+      },
+    });
+  });
+</script>
+	
   <footer>
     &copy; 2025 GloomRealm Horror. All rights reserved.
   </footer>
