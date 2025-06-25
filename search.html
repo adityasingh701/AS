@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Search Filter Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f9f9f9;
+    }
+    #searchInput {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .name-item {
+      padding: 10px;
+      background: white;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔍 Search by Name</h2>
+  <input type="text" id="searchInput" placeholder="Type a name...">
+
+  <div class="name-item">Avengers</div>
+  <div class="name-item">Iron Man</div>
+  <div class="name-item">Black Panther</div>
+  <div class="name-item">Bahubali</div>
+  <div class="name-item">Spiderman</div>
+  <div class="name-item">Pushpa</div>
+  <div class="name-item">Kantara</div>
+  <div class="name-item">Dangal</div>
+
+  <script>
+    const searchInput = document.getElementById("searchInput");
+    const nameItems = document.querySelectorAll(".name-item");
+
+    searchInput.addEventListener("input", function () {
+      const value = this.value.toLowerCase();
+      nameItems.forEach(item => {
+        item.style.display = item.textContent.toLowerCase().includes(value) ? "block" : "none";
+      });
+    });
+  </script>
+
+</body>
+</html>
