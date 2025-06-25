@@ -21,7 +21,22 @@
        <a href="premium.html">Premium</a>
     </nav>
   </header>
+<input type="text" id="searchInput" placeholder="Search Movies..." style="width:100%;padding:10px;margin-bottom:20px;font-size:16px;">
 
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const items = document.querySelectorAll(".story-item");
+
+  searchInput.addEventListener("input", function () {
+    const searchTerm = this.value.toLowerCase();
+
+    items.forEach(item => {
+      const title = item.querySelector("h3").innerText.toLowerCase();
+      item.style.display = title.includes(searchTerm) ? "block" : "none";
+    });
+  });
+</script>
+  
   <div id="ad-container" style="
   position: relative;
   top: 5px;
